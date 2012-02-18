@@ -1,0 +1,5 @@
+bin/
+/*.apk
+R.java
+gen/
+*~

@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:orientation="vertical" 
+    android:gravity="center_horizontal"
+    >
+    
+    
+    <TextView android:id="@+id/dialog_percent"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="28sp"
+        android:textColor="@android:color/black"
+        android:textStyle="bold"
+        android:text="33%"
+        android:layout_marginTop="15dip"
+        />
+    
+    <TextView android:id="@+id/dialog_state"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="15sp"
+        android:textColor="#FF1155AA"
+        android:text="正在上传"
+        android:layout_marginTop="15dip"
+        />
+
+</LinearLayout>
