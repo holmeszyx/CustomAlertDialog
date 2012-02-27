@@ -3,6 +3,8 @@ package com.hol.general.dialog;
 import android.app.Activity;
 import android.content.DialogInterface;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -10,6 +12,7 @@ import android.widget.Button;
 import android.widget.Toast;
 
 import com.hol.general.dialog.model.CustomAlertDialog;
+import com.hol.general.dialog.model.CustomProgressDialog;
 
 public class AndroidCustomDialogActivity extends Activity implements OnClickListener{
     /** Called when the activity is first created. */
@@ -76,13 +79,36 @@ public class AndroidCustomDialogActivity extends Activity implements OnClickList
 			public void onCancel(DialogInterface dialog) {
 				// TODO Auto-generated method stub
 				Toast.makeText(getApplicationContext(), "Cancel", Toast.LENGTH_SHORT).show();
-				
+				showProgressDialog();
 			}
-		}).setCancelable(false);
+		}).setCancelable(true);
     	
     	builder.show();
     }
     
+    private void showProgressDialog(){
+    	final CustomProgressDialog customProgressDialog = new CustomProgressDialog(this, "上传");
+    	customProgressDialog.setProgressStyle(CustomProgressDialog.STYLE_HORIZONTAL);
+    	customProgressDialog.setMax(123);
+    	customProgressDialog.setMessage("正在上传...");
+    	customProgressDialog.show();
+    	Handler handler = new Handler(){
+    		@Override
+    		public void handleMessage(Message msg) {
+    			// TODO Auto-generated method stub
+    			super.handleMessage(msg);
+    			int progress = customProgressDialog.getProgress();
+    			customProgressDialog.setProgress(progress + 2);
+    			customProgressDialog.setMessage(String.format("正在上传...(%d/%d)", customProgressDialog.getProgress(), customProgressDialog.getMax()));
+    			if (customProgressDialog.getProgress() >= customProgressDialog.getMax()){
+    				customProgressDialog.dismiss();
+    			}else{
+    				this.sendEmptyMessageDelayed(0, 500);
+    			}
+    		}
+    	};
+    	handler.sendEmptyMessage(0);
+    }
     
 
 	@Override

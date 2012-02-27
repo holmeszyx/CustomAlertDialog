@@ -14,6 +14,7 @@ import android.text.TextUtils;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -288,7 +289,9 @@ public class CustomAlertDialog extends Dialog{
         	}
         	
         	if (!hasButton){
-        		mDialogTemplate.findViewById(R.id.buttonPanel).setVisibility(View.GONE);
+        		View buttonPanel = mDialogTemplate.findViewById(R.id.buttonPanel);
+        		buttonPanel.setVisibility(View.GONE);
+        		((ViewGroup) mDialogTemplate).removeView(buttonPanel);
         	}
         	
         	CustomAlertDialog customAlertDialog = new CustomAlertDialog(mContext, R.style.CustomDialog);
