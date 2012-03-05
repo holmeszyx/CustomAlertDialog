@@ -26,6 +26,7 @@ import android.widget.TextView;
 
 import com.hol.general.dialog.R;
 
+
 /**
  * 模仿alertDialog编写。<br>
  * 可以直接使用其builder来创建自定义对话框
@@ -280,6 +281,10 @@ public class CustomAlertDialog extends Dialog{
         	boolean hasButton = setupButton();
         	boolean hasView = setupView();
         	
+        	if (hasList){
+        		((LinearLayout.LayoutParams) mDialogTemplate.findViewById(R.id.customPanel).getLayoutParams()).weight = 0;
+        	}
+        	
         	if (hasView){
         		LinearLayout content = (LinearLayout) mDialogTemplate.findViewById(R.id.contentPanel);
         		content.removeAllViews();
@@ -419,6 +424,7 @@ public class CustomAlertDialog extends Dialog{
 			mListView.setSelector(new ColorDrawable(Color.TRANSPARENT));
 			mListView.setCacheColorHint(Color.TRANSPARENT);
 			content.addView(mListView, new LinearLayout.LayoutParams(LinearLayout.LayoutParams.FILL_PARENT, LinearLayout.LayoutParams.FILL_PARENT));
+			content.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.FILL_PARENT, 0, 1.0f));
 			mListView.setAdapter(adapter);
 			mListView.setItemChecked(mSelectedItemtIndex, true);
 			if (mItemClickListener != null){
@@ -471,4 +477,5 @@ public class CustomAlertDialog extends Dialog{
         }
 		
 	}
+	
 }

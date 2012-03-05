@@ -43,7 +43,7 @@ public class AndroidCustomDialogActivity extends Activity implements OnClickList
     	CustomAlertDialog.Builder builder = new CustomAlertDialog.Builder(this);
     	builder.setTitle("这是什么");
     	builder.setMessage("Holy shit!");
-    	builder.setItems(ITEMS, new DialogInterface.OnClickListener() {
+    	builder.setItems(R.array.contact_add_item, new DialogInterface.OnClickListener() {
 			
 			@Override
 			public void onClick(DialogInterface dialog, int which) {
@@ -51,7 +51,7 @@ public class AndroidCustomDialogActivity extends Activity implements OnClickList
 				Toast.makeText(getApplicationContext(), which + "你妹", Toast.LENGTH_SHORT).show();
 			}
 		});
-    	
+    	/*
     	builder.setSingleChoiceItems(ITEMS, 2, new DialogInterface.OnClickListener() {
 			
 			@Override
@@ -82,7 +82,7 @@ public class AndroidCustomDialogActivity extends Activity implements OnClickList
 				showProgressDialog();
 			}
 		}).setCancelable(true);
-    	
+    	*/
     	builder.show();
     }
     
