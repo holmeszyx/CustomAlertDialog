@@ -11,7 +11,10 @@
     </style> 
     
     <style name="CustomDialogText.Button" parent="android:Widget.Button">
-        <item name="android:background">@drawable/btn_normal_blue</item>
-        <item name="android:textColor">@android:color/white</item>
+        <item name="android:background">@drawable/btn_normal_op</item>
+        <item name="android:textColor">#FF000000</item>
+        <item name="android:padding">10dip</item>
+        <item name="android:textSize">18sp</item>
+        <item name="android:textStyle">bold</item>
     </style>
 </resources>

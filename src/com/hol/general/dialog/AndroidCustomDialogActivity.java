@@ -43,12 +43,14 @@ public class AndroidCustomDialogActivity extends Activity implements OnClickList
     	CustomAlertDialog.Builder builder = new CustomAlertDialog.Builder(this);
     	builder.setTitle("这是什么");
     	builder.setMessage("Holy shit!");
+    	final String[] items = getResources().getStringArray(R.array.contact_add_item);
     	builder.setItems(R.array.contact_add_item, new DialogInterface.OnClickListener() {
 			
 			@Override
 			public void onClick(DialogInterface dialog, int which) {
 				// TODO Auto-generated method stub
 				Toast.makeText(getApplicationContext(), which + "你妹", Toast.LENGTH_SHORT).show();
+				showNormalDialog(items[which]);
 			}
 		});
     	/*
@@ -84,6 +86,34 @@ public class AndroidCustomDialogActivity extends Activity implements OnClickList
 		}).setCancelable(true);
     	*/
     	builder.show();
+    }
+    
+    private void showNormalDialog(String msg){
+		CustomAlertDialog.Builder builder = new CustomAlertDialog.Builder(this);
+		builder.setTitle("纳呢");
+		builder.setMessage(msg);
+		builder.setPositiveButton("Kill",
+				new DialogInterface.OnClickListener() {
+
+					@Override
+					public void onClick(DialogInterface dialog, int which) {
+						// TODO Auto-generated method stub
+						Toast.makeText(getApplicationContext(), "你妹",
+								Toast.LENGTH_SHORT).show();
+					}
+				});
+		builder.setNegativeButton("back", null);
+		builder.setOnCancelListener(new DialogInterface.OnCancelListener() {
+
+			@Override
+			public void onCancel(DialogInterface dialog) {
+				// TODO Auto-generated method stub
+				Toast.makeText(getApplicationContext(), "Cancel",
+						Toast.LENGTH_SHORT).show();
+				showProgressDialog();
+			}
+		}).setCancelable(true);
+		builder.show();
     }
     
     private void showProgressDialog(){

@@ -11,10 +11,12 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.text.TextUtils;
+import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager.LayoutParams;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -55,6 +57,9 @@ public class CustomAlertDialog extends Dialog{
 	protected void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
+		//LayoutParams params = getWindow().getAttributes();
+		//params.horizontalMargin = 20;
+		//getWindow().setAttributes(params);
 	}
 
 	public static class Builder{
@@ -404,7 +409,21 @@ public class CustomAlertDialog extends Dialog{
         		if (mItemArray == null){
         			return false;
         		}
-        		adapter = new ArrayAdapter<String>(mContext, layout, android.R.id.text1, mItemArray);
+        		adapter = new ArrayAdapter<String>(mContext, layout, android.R.id.text1, mItemArray){
+        			
+        			@Override
+        			public View getView(int position, View convertView,
+        					ViewGroup parent) {
+        				// TODO Auto-generated method stub
+        				View v = super.getView(position, convertView, parent);
+        				if (v instanceof TextView){
+        					TextView txt = (TextView) v;
+        					txt.setMinimumHeight(10);
+        					txt.setTextSize(15);
+        				}
+        				return v;
+        			}
+        		};
         	}else{
         		adapter = mListAdapter;
         	}
