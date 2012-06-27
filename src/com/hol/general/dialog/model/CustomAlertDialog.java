@@ -329,7 +329,7 @@ public class CustomAlertDialog extends Dialog{
         		return false;
         	}else{
         		FrameLayout custom = (FrameLayout) mDialogTemplate.findViewById(R.id.custom);
-        		custom.addView(mViewContent, new FrameLayout.LayoutParams(FrameLayout.LayoutParams.FILL_PARENT, FrameLayout.LayoutParams.WRAP_CONTENT));
+        		custom.addView(mViewContent, new FrameLayout.LayoutParams(FrameLayout.LayoutParams.FILL_PARENT, FrameLayout.LayoutParams.FILL_PARENT));
         	}
 			return true;
 		}
