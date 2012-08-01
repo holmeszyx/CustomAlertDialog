@@ -162,7 +162,9 @@ public class CustomProgressDialog {
     }
     
     public void dismiss(){
-    	mCustomAlertDialog.dismiss();
+    	if (mCustomAlertDialog != null){
+	    	mCustomAlertDialog.dismiss();
+    	}
         mHasStarted = false;
     }
     
