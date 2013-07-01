@@ -11,12 +11,10 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.text.TextUtils;
-import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.WindowManager.LayoutParams;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -87,6 +85,8 @@ public class CustomAlertDialog extends Dialog{
 		
 		private View mViewContent;
 		private boolean mCancelable = true;
+		
+		private int mLayout = 0;
 		
 		
 		public Builder (Context context){
@@ -271,10 +271,18 @@ public class CustomAlertDialog extends Dialog{
         	return this;
         }
         
+        /**
+         * 设置布局资源
+         * @param layout
+         */
+        public void setLayoutResource(int layout){
+        	mLayout = layout;
+        }
+        
     	@SuppressWarnings("unused")
         public CustomAlertDialog create(){
         	LayoutInflater infl = (LayoutInflater) mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        	View layout = infl.inflate(R.layout.custom_dialog, null);
+        	View layout = infl.inflate(mLayout == 0 ? R.layout.custom_dialog : mLayout, null);
         	if (layout == null){
         		return null;
         	}

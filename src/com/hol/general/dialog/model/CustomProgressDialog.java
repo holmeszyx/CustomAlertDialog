@@ -101,7 +101,6 @@ public class CustomProgressDialog {
         
         View view;
         if (mProgressStyle == STYLE_HORIZONTAL) {
-            
             view = inflater.inflate(R.layout.custom_progress_hori, null);
         } else {
             view = inflater.inflate(R.layout.custom_progress_cycle, null);
