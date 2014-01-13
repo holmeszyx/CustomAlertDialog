@@ -295,6 +295,8 @@ public class CustomAlertDialog extends Dialog{
         	boolean hasView = setupView();
         	
         	if (hasList){
+        		LinearLayout content = (LinearLayout) mDialogTemplate.findViewById(R.id.contentPanel);
+        		content.setVisibility(View.VISIBLE);
         		((LinearLayout.LayoutParams) mDialogTemplate.findViewById(R.id.customPanel).getLayoutParams()).weight = 0;
         	}
         	
