@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <drawable name="cad__bg_item_press">#ffdddddd</drawable>
+    <drawable name="cad__transparent">#00000000</drawable>
+</resources>

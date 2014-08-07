@@ -3,12 +3,14 @@ package com.hol.general.dialog.model;
 import java.text.NumberFormat;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.DialogInterface.OnCancelListener;
 import android.graphics.drawable.Drawable;
 import android.os.Handler;
 import android.os.Message;
 import android.text.Spannable;
 import android.text.SpannableString;
+import android.text.TextUtils;
 import android.text.style.StyleSpan;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -54,6 +56,18 @@ public class CustomProgressDialog {
     private String mTitle;
     private boolean mCancelable;
     private OnCancelListener mCancelListener;
+
+    private String mPositiveButtonText;
+
+    private DialogInterface.OnClickListener mPositiveButtonOnClickListener;
+
+    private String mNegativeButtonText;
+
+    private DialogInterface.OnClickListener mNegativeButtonOnClickListener;
+
+    private String mNeutralButtonText;
+
+    private DialogInterface.OnClickListener mNeutralButtonOnClickListener;
     
     public CustomProgressDialog(Context context){
     	this(context, null);
@@ -101,9 +115,9 @@ public class CustomProgressDialog {
         
         View view;
         if (mProgressStyle == STYLE_HORIZONTAL) {
-            view = inflater.inflate(R.layout.custom_progress_hori, null);
+            view = inflater.inflate(R.layout.cad__custom_progress_hori, null);
         } else {
-            view = inflater.inflate(R.layout.custom_progress_cycle, null);
+            view = inflater.inflate(R.layout.cad__custom_progress_cycle, null);
         }
         
         mProgress = (ProgressBar) view.findViewById(android.R.id.progress);
@@ -116,6 +130,7 @@ public class CustomProgressDialog {
         builder.setTitle(title);
         builder.setCancelable(cancelable);
         builder.setOnCancelListener(cancelListener);
+        createButtons(builder);
         
         if (mMax > 0) {
             setMax(mMax);
@@ -146,6 +161,22 @@ public class CustomProgressDialog {
         
         mCustomAlertDialog = builder.create();
     	return mCustomAlertDialog;
+    }
+
+    /**
+     * 生成按钮
+     * @param builder
+     */
+    private void createButtons(CustomAlertDialog.Builder builder){
+        if (!TextUtils.isEmpty(mPositiveButtonText)){
+            builder.setPositiveButton(mPositiveButtonText, mPositiveButtonOnClickListener);
+        }
+        if (!TextUtils.isEmpty(mNegativeButtonText)){
+            builder.setNegativeButton(mNegativeButtonText, mNegativeButtonOnClickListener);
+        }
+        if (!TextUtils.isEmpty(mNeutralButtonText)){
+            builder.setNeutralButton(mNeutralButtonText, mNeutralButtonOnClickListener);
+        }
     }
     
     public void create(){
@@ -296,5 +327,48 @@ public class CustomProgressDialog {
         if (mProgressStyle == STYLE_HORIZONTAL) {
             mViewUpdateHandler.sendEmptyMessage(0);
         }
+    }
+
+
+    public CustomProgressDialog setPositiveButton(String text, DialogInterface.OnClickListener listener){
+        mPositiveButtonText = text;
+        mPositiveButtonOnClickListener = listener;
+        //setButton(DialogInterface.BUTTON_POSITIVE, text, listener, mButtonPositiveMessage);
+        return this;
+    }
+
+    public CustomProgressDialog setPositiveButton(int resId, DialogInterface.OnClickListener listener){
+        mPositiveButtonText = mContext.getString(resId);
+        mPositiveButtonOnClickListener = listener;
+        //setButton(DialogInterface.BUTTON_POSITIVE, mPositiveButtonText, listener, mButtonPositiveMessage);
+        return this;
+    }
+
+    public CustomProgressDialog setNegativeButton(String text, DialogInterface.OnClickListener listener){
+        mNegativeButtonText = text;
+        mNegativeButtonOnClickListener = listener;
+        //setButton(DialogInterface.BUTTON_NEGATIVE, mNegativeButtonText, listener, mButtonNegativeMessage);
+        return this;
+    }
+
+    public CustomProgressDialog setNegativeButton(int resId, DialogInterface.OnClickListener listener){
+        mNegativeButtonText = mContext.getString(resId);
+        mNegativeButtonOnClickListener = listener;
+        //setButton(DialogInterface.BUTTON_NEGATIVE, mNegativeButtonText, listener, mButtonNegativeMessage);
+        return this;
+    }
+
+    public CustomProgressDialog setNeutralButton(String text, DialogInterface.OnClickListener listener){
+        mNeutralButtonText = text;
+        mNeutralButtonOnClickListener = listener;
+        //setButton(DialogInterface.BUTTON_NEGATIVE, mNeutralButtonText, listener, mButtonNeutralMessage);
+        return this;
+    }
+
+    public CustomProgressDialog setNeutralButton(int resId, DialogInterface.OnClickListener listener){
+        mNeutralButtonText = mContext.getString(resId);
+        mNeutralButtonOnClickListener = listener;
+
+        return this;
     }
 }

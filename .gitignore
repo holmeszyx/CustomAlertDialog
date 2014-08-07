@@ -3,3 +3,9 @@ bin/
 R.java
 gen/
 *~
+local.properties
+
+.idea/
+.gradle/
+build/
+*.iml

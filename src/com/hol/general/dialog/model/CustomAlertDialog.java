@@ -6,7 +6,6 @@ import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.graphics.Color;
-import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -87,10 +86,12 @@ public class CustomAlertDialog extends Dialog{
 		private boolean mCancelable = true;
 		
 		private int mLayout = 0;
-		
+
+        private float mDensity;
 		
 		public Builder (Context context){
 			mContext = context;
+            mDensity = mContext.getResources().getDisplayMetrics().density;
 		}
 		
 		View.OnClickListener mButtonHandler = new View.OnClickListener() {
@@ -229,6 +230,19 @@ public class CustomAlertDialog extends Dialog{
 	                throw new IllegalArgumentException("Button does not exist");
 	        }
 	    }
+
+        public Button getButton(int whichButton){
+            switch (whichButton) {
+                case DialogInterface.BUTTON_POSITIVE:
+                    return mBtnPositive;
+                case DialogInterface.BUTTON_NEGATIVE:
+                    return mBtnNegative;
+                case DialogInterface.BUTTON_NEUTRAL:
+                    return mBtnNeutral;
+                default:
+                    return null;
+            }
+        }
 		
 		public Builder setView(View v){
 			mViewContent = v;
@@ -282,7 +296,7 @@ public class CustomAlertDialog extends Dialog{
     	@SuppressWarnings("unused")
         public CustomAlertDialog create(){
         	LayoutInflater infl = (LayoutInflater) mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        	View layout = infl.inflate(mLayout == 0 ? R.layout.custom_dialog : mLayout, null);
+        	View layout = infl.inflate(mLayout == 0 ? R.layout.cad__custom_dialog : mLayout, null);
         	if (layout == null){
         		return null;
         	}
@@ -412,8 +426,8 @@ public class CustomAlertDialog extends Dialog{
 
 		private boolean setupList() {
 			// TODO Auto-generated method stub
-			int layout = mIsSingleChoice ? android.R.layout.select_dialog_singlechoice
-					: android.R.layout.select_dialog_item;
+			int layout = mIsSingleChoice ? R.layout.cad__select_dialog_singlechoice
+					: R.layout.cad__select_dialog_item;
         	ListAdapter adapter;
         	if (mListAdapter == null){
         		if (mItemArray == null){
@@ -426,11 +440,11 @@ public class CustomAlertDialog extends Dialog{
         					ViewGroup parent) {
         				// TODO Auto-generated method stub
         				View v = super.getView(position, convertView, parent);
-        				if (v instanceof TextView){
-        					TextView txt = (TextView) v;
-        					txt.setMinimumHeight(10);
-        					txt.setTextSize(15);
-        				}
+//        				if (v instanceof TextView){
+//        					TextView txt = (TextView) v;
+//        					//txt.setMinimumHeight((int) (18 * mDensity));
+//        					//txt.setTextSize(TypedValue.COMPLEX_UNIT_SP, 16.0f);
+//        				}
         				return v;
         			}
         		};
@@ -446,11 +460,11 @@ public class CustomAlertDialog extends Dialog{
 			// TODO Auto-generated method stub
 			LinearLayout content = (LinearLayout) mDialogTemplate.findViewById(R.id.contentPanel);
 			content.removeView(mDialogTemplate.findViewById(R.id.scrollView));
-			ListView lst = new ListView(mContext);
+            LayoutInflater inflater = LayoutInflater.from(mContext);
+			ListView lst = (ListView) inflater.inflate(R.layout.cad__custom_dialog_listview, null);
 			mListView = lst;
 			int choiceMode = mIsSingleChoice ? ListView.CHOICE_MODE_SINGLE : ListView.CHOICE_MODE_NONE;
 			mListView.setChoiceMode(choiceMode);
-			mListView.setSelector(new ColorDrawable(Color.TRANSPARENT));
 			mListView.setCacheColorHint(Color.TRANSPARENT);
 			content.addView(mListView, new LinearLayout.LayoutParams(LinearLayout.LayoutParams.FILL_PARENT, LinearLayout.LayoutParams.FILL_PARENT));
 			content.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.FILL_PARENT, 0, 1.0f));

@@ -50,7 +50,11 @@ public class AndroidCustomDialogActivity extends Activity implements OnClickList
 			public void onClick(DialogInterface dialog, int which) {
 				// TODO Auto-generated method stub
 				Toast.makeText(getApplicationContext(), which + "你妹", Toast.LENGTH_SHORT).show();
-				showNormalDialog(items[which]);
+                if (which == 2){
+                    showLiteItems();
+                }else{
+                    showNormalDialog(items[which]);
+                }
 			}
 		});
     	/*
@@ -86,6 +90,21 @@ public class AndroidCustomDialogActivity extends Activity implements OnClickList
 		}).setCancelable(true);
     	*/
     	builder.show();
+    }
+
+    private void showLiteItems(){
+        CustomAlertDialog.Builder builder = new CustomAlertDialog.Builder(this);
+        builder.setTitle("这是什么");
+    	builder.setSingleChoiceItems(ITEMS, 2, new DialogInterface.OnClickListener() {
+
+			@Override
+			public void onClick(DialogInterface dialog, int which) {
+				// TODO Auto-generated method stub
+				Toast.makeText(getApplicationContext(), which + "XX", Toast.LENGTH_SHORT).show();
+                dialog.dismiss();
+			}
+		});
+        builder.show();
     }
     
     private void showNormalDialog(String msg){
