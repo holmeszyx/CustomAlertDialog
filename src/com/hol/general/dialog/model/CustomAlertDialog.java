@@ -1,7 +1,5 @@
 package com.hol.general.dialog.model;
 
-import java.lang.ref.WeakReference;
-
 import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -23,7 +21,10 @@ import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 
+
 import com.hol.general.dialog.R;
+
+import java.lang.ref.WeakReference;
 
 
 /**
@@ -35,7 +36,7 @@ import com.hol.general.dialog.R;
 public class CustomAlertDialog extends Dialog{
 
 	public CustomAlertDialog(Context context, boolean cancelable,
-			OnCancelListener cancelListener) {
+                             OnCancelListener cancelListener) {
 		super(context, cancelable, cancelListener);
 		// TODO Auto-generated constructor stub
 	}
@@ -62,23 +63,23 @@ public class CustomAlertDialog extends Dialog{
 	public static class Builder{
 		private Context mContext;
 		private CustomAlertDialog mDialog;
-		private String mTitle;
-		private String mMessage;
+		private CharSequence mTitle;
+		private CharSequence mMessage;
 		private Button mBtnPositive, mBtnNegative, mBtnNeutral;
 		private Message mButtonPositiveMessage, mButtonNegativeMessage, mButtonNeutralMessage;
-		private String mPositiveButtonText;
-		private String mNegativeButtonText;
-		private String mNeutralButtonText;
-		private DialogInterface.OnClickListener 
+		private CharSequence mPositiveButtonText;
+		private CharSequence mNegativeButtonText;
+		private CharSequence mNeutralButtonText;
+		private OnClickListener
 			mPositiveButtonOnClickListener, mNegativeButtonOnClickListener, mNeutralButtonOnClickListener;
 		private Handler mHandler;
-		private DialogInterface.OnCancelListener mOnCancelListener;
+		private OnCancelListener mOnCancelListener;
 		
 		private ListView mListView;
 		private ListAdapter mListAdapter;
-		private String[] mItemArray;
+		private CharSequence[] mItemArray;
 		private int mSelectedItemtIndex = 0;
-		private DialogInterface.OnClickListener mItemClickListener;
+		private OnClickListener mItemClickListener;
 		private boolean mIsSingleChoice = false;
 		private View mDialogTemplate;
 		
@@ -93,6 +94,10 @@ public class CustomAlertDialog extends Dialog{
 			mContext = context;
             mDensity = mContext.getResources().getDisplayMetrics().density;
 		}
+
+        public Context getContext(){
+            return mContext;
+        }
 		
 		View.OnClickListener mButtonHandler = new View.OnClickListener() {
 	        public void onClick(View v) {
@@ -131,7 +136,7 @@ public class CustomAlertDialog extends Dialog{
 	                case DialogInterface.BUTTON_POSITIVE:
 	                case DialogInterface.BUTTON_NEGATIVE:
 	                case DialogInterface.BUTTON_NEUTRAL:
-	                    ((DialogInterface.OnClickListener) msg.obj).onClick(mDialog.get(), msg.what);
+	                    ((OnClickListener) msg.obj).onClick(mDialog.get(), msg.what);
 	                    break;
 	                    
 	                case MSG_DISMISS_DIALOG:
@@ -140,7 +145,7 @@ public class CustomAlertDialog extends Dialog{
 	        }
 	    }
 		
-		public Builder setTitle(String title){
+		public Builder setTitle(CharSequence title){
 			mTitle = title;
 			return this;
 		}
@@ -150,7 +155,7 @@ public class CustomAlertDialog extends Dialog{
 			return this;
 		}
 		
-		public Builder setMessage(String msg){
+		public Builder setMessage(CharSequence msg){
 			mMessage = msg;
 			return this;
 		}
@@ -160,42 +165,42 @@ public class CustomAlertDialog extends Dialog{
 			return this;
 		}
 		
-		public Builder setPositiveButton(String text, DialogInterface.OnClickListener listener){
+		public Builder setPositiveButton(CharSequence text, OnClickListener listener){
 			mPositiveButtonText = text;
 			mPositiveButtonOnClickListener = listener;
 			//setButton(DialogInterface.BUTTON_POSITIVE, text, listener, mButtonPositiveMessage);
 			return this;
 		}
 		
-		public Builder setPositiveButton(int resId, DialogInterface.OnClickListener listener){
+		public Builder setPositiveButton(int resId, OnClickListener listener){
 			mPositiveButtonText = mContext.getString(resId);
 			mPositiveButtonOnClickListener = listener;
 			//setButton(DialogInterface.BUTTON_POSITIVE, mPositiveButtonText, listener, mButtonPositiveMessage);
 			return this;
 		}
 		
-		public Builder setNegativeButton(String text, DialogInterface.OnClickListener listener){
+		public Builder setNegativeButton(CharSequence text, OnClickListener listener){
 			mNegativeButtonText = text;
 			mNegativeButtonOnClickListener = listener;
 			//setButton(DialogInterface.BUTTON_NEGATIVE, mNegativeButtonText, listener, mButtonNegativeMessage);
 			return this;
 		}
 		
-		public Builder setNegativeButton(int resId, DialogInterface.OnClickListener listener){
+		public Builder setNegativeButton(int resId, OnClickListener listener){
 			mNegativeButtonText = mContext.getString(resId);
 			mNegativeButtonOnClickListener = listener;
 			//setButton(DialogInterface.BUTTON_NEGATIVE, mNegativeButtonText, listener, mButtonNegativeMessage);
 			return this;
 		}
 		
-		public Builder setNeutralButton(String text, DialogInterface.OnClickListener listener){
+		public Builder setNeutralButton(CharSequence text, OnClickListener listener){
 			mNeutralButtonText = text;
 			mNeutralButtonOnClickListener = listener;
 			//setButton(DialogInterface.BUTTON_NEGATIVE, mNeutralButtonText, listener, mButtonNeutralMessage);
 			return this;
 		}
 		
-		public Builder setNeutralButton(int resId, DialogInterface.OnClickListener listener){
+		public Builder setNeutralButton(int resId, OnClickListener listener){
 			mNeutralButtonText = mContext.getString(resId);
 			mNeutralButtonOnClickListener = listener;
 			
@@ -203,7 +208,7 @@ public class CustomAlertDialog extends Dialog{
 		}
 		
 	    public void setButton(int whichButton, 
-	            DialogInterface.OnClickListener listener, Message msg) {
+	            OnClickListener listener, Message msg) {
 
 	        if (msg == null && listener != null) {
 	            msg = mHandler.obtainMessage(whichButton, listener);
@@ -249,13 +254,13 @@ public class CustomAlertDialog extends Dialog{
 			return this;
 		}
 		
-		public Builder setItems(int itemsId, DialogInterface.OnClickListener listener){
+		public Builder setItems(int itemsId, OnClickListener listener){
 			mItemArray = mContext.getResources().getStringArray(itemsId);
 			mItemClickListener = listener;
 			return this;
 		}
 		
-		public Builder setItems(String[] items, DialogInterface.OnClickListener listener){
+		public Builder setItems(CharSequence[] items, OnClickListener listener){
 			mItemArray = items;
 			mItemClickListener = listener;
 			return this;
@@ -267,7 +272,7 @@ public class CustomAlertDialog extends Dialog{
             return this;
         }
         
-        public Builder setSingleChoiceItems(String[] items, int checkedItem, final OnClickListener listener) {
+        public Builder setSingleChoiceItems(CharSequence[] items, int checkedItem, final OnClickListener listener) {
             mItemArray = items;
             mItemClickListener = listener;
             mSelectedItemtIndex = checkedItem;
@@ -280,7 +285,7 @@ public class CustomAlertDialog extends Dialog{
         	return this;
         }
         
-        public Builder setOnCancelListener(DialogInterface.OnCancelListener listener){
+        public Builder setOnCancelListener(OnCancelListener listener){
         	mOnCancelListener = listener;
         	return this;
         }
@@ -433,7 +438,7 @@ public class CustomAlertDialog extends Dialog{
         		if (mItemArray == null){
         			return false;
         		}
-        		adapter = new ArrayAdapter<String>(mContext, layout, android.R.id.text1, mItemArray){
+        		adapter = new ArrayAdapter<CharSequence>(mContext, layout, android.R.id.text1, mItemArray){
         			
         			@Override
         			public View getView(int position, View convertView,
