@@ -21,12 +21,12 @@ import com.hol.general.dialog.R;
 
 public class CustomProgressDialog {
 	   
-    /** Creates a ProgressDialog with a ciruclar, spinning progress
+    /** Creates a ProgressDialog with a ciruclar, spinning cad__progress
      * bar. This is the default.
      */
     public static final int STYLE_SPINNER = 0;
     
-    /** Creates a ProgressDialog with a horizontal progress bar.
+    /** Creates a ProgressDialog with a horizontal cad__progress bar.
      */
     public static final int STYLE_HORIZONTAL = 1;
     

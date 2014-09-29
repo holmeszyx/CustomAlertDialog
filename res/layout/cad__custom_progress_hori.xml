@@ -3,7 +3,7 @@
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
     android:orientation="vertical" 
-    android:padding="2dip"
+    android:padding="8dp"
     >
     
     <TextView android:id="@android:id/text1"
@@ -22,8 +22,8 @@
 	<ProgressBar android:id="@android:id/progress"
 	    style="@android:style/Widget.ProgressBar.Horizontal"
 	    android:layout_width="fill_parent"
-	    android:layout_height="10dip"
-	    android:layout_marginTop="2dip"
-	    android:progressDrawable="@drawable/progress"
+	    android:layout_height="10dp"
+	    android:layout_marginTop="2dp"
+	    android:progressDrawable="@drawable/cad__progress"
 	    />
 </LinearLayout>

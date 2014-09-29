@@ -14,6 +14,9 @@ import android.widget.Toast;
 import com.hol.general.dialog.model.CustomAlertDialog;
 import com.hol.general.dialog.model.CustomProgressDialog;
 
+/**
+ * Custom dialog 使用的Demo
+ */
 public class AndroidCustomDialogActivity extends Activity implements OnClickListener{
     /** Called when the activity is first created. */
 	private static final String[] ITEMS = new String[]{
@@ -32,14 +35,6 @@ public class AndroidCustomDialogActivity extends Activity implements OnClickList
     }
     
     private void showCustomAlertDialog(){
-    	/*
-    	AlertDialog.Builder builder = new AlertDialog.Builder(this);
-    	View content = ((LayoutInflater)getSystemService(Context.LAYOUT_INFLATER_SERVICE)).inflate(R.layout.dialog_context, null);
-    	builder.setView(content);
-    	//builder.setPositiveButton("OK", null);
-    	builder.show();
-    	*/
-    	
     	CustomAlertDialog.Builder builder = new CustomAlertDialog.Builder(this);
     	builder.setTitle("这是什么");
     	builder.setMessage("Holy shit!");
@@ -57,38 +52,6 @@ public class AndroidCustomDialogActivity extends Activity implements OnClickList
                 }
 			}
 		});
-    	/*
-    	builder.setSingleChoiceItems(ITEMS, 2, new DialogInterface.OnClickListener() {
-			
-			@Override
-			public void onClick(DialogInterface dialog, int which) {
-				// TODO Auto-generated method stub
-				Toast.makeText(getApplicationContext(), which + "XX", Toast.LENGTH_SHORT).show();
-				
-			}
-		});
-    	
-    	builder.setView(LayoutInflater.from(this).inflate(R.layout.dialog_context, null) );
-    	
-    	builder.setPositiveButton("Kill", new DialogInterface.OnClickListener() {
-			
-			@Override
-			public void onClick(DialogInterface dialog, int which) {
-				// TODO Auto-generated method stub
-				Toast.makeText(getApplicationContext(), "你妹", Toast.LENGTH_SHORT).show();
-			}
-		});
-    	builder.setNegativeButton("back", null);
-    	builder.setOnCancelListener(new DialogInterface.OnCancelListener() {
-			
-			@Override
-			public void onCancel(DialogInterface dialog) {
-				// TODO Auto-generated method stub
-				Toast.makeText(getApplicationContext(), "Cancel", Toast.LENGTH_SHORT).show();
-				showProgressDialog();
-			}
-		}).setCancelable(true);
-    	*/
     	builder.show();
     }
 

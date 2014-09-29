@@ -413,6 +413,8 @@ public class CustomAlertDialog extends Dialog{
                 centerButton(mBtnNeutral);
             } else if (whichButtons == BIT_BUTTON_NEUTRAL) {
                 centerButton(mBtnNeutral);
+            }else {
+                setButtonDividers(whichButtons);
             }
             
             return whichButtons != 0;
@@ -427,6 +429,26 @@ public class CustomAlertDialog extends Dialog{
             leftSpacer.setVisibility(View.VISIBLE);
             View rightSpacer = mDialogTemplate.findViewById(R.id.rightSpacer);
             rightSpacer.setVisibility(View.VISIBLE);
+        }
+
+        /**
+         * set dividers between buttons
+         * @param whichButtons
+         */
+        private void setButtonDividers(int whichButtons){
+            View divider1 = mDialogTemplate.findViewById(R.id.button_divider1);
+            View divider2 = mDialogTemplate.findViewById(R.id.button_divider2);
+            if (whichButtons == 0){
+                divider1.setVisibility(View.GONE);
+                divider2.setVisibility(View.GONE);
+            }else if (whichButtons == 3){
+                divider2.setVisibility(View.GONE);
+            }else if (whichButtons == 5){
+                divider1.setVisibility(View.GONE);
+            }else if (whichButtons == 6){
+                divider2.setVisibility(View.GONE);
+            }
+
         }
 
 		private boolean setupList() {

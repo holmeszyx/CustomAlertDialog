@@ -4,6 +4,7 @@
     android:layout_height="fill_parent"
     android:orientation="vertical" 
     android:gravity="center_horizontal"
+    android:padding="8dp"
     >
     
     

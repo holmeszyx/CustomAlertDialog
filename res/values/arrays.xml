@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-	    <!-- 这个不修改 -->
+
 	<string-array name="letter_list">
         <item>\#</item>
 	    <item>A</item>
@@ -44,7 +44,6 @@
 		<item>20 minutes</item>
 	</string-array>
 	
-	    <!-- 这个不修改 -->
 	<string-array name="invalid_privacy_name">
 		<item>default</item>
 		<item>ungroup</item>
@@ -63,11 +62,10 @@
 	<string-array name="contact_add_item">
 		<item>电话</item>
 		<item>邮箱</item>
-		<item>住址</item>
+		<item>住址 单选</item>
 		<item>公司</item>
 		<item>即时聊天</item>
 		<item>网页</item>
 		<item>备注</item>
-		<!--  <item>Nickname</item> -->
 	</string-array>
 </resources>
