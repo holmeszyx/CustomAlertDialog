@@ -12,6 +12,8 @@ import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -35,6 +37,8 @@ import java.lang.ref.WeakReference;
  */
 public class CustomAlertDialog extends Dialog{
 
+    private boolean mForceFullScreenWidth = false;
+
 	public CustomAlertDialog(Context context, boolean cancelable,
                              OnCancelListener cancelListener) {
 		super(context, cancelable, cancelListener);
@@ -55,12 +59,30 @@ public class CustomAlertDialog extends Dialog{
 	protected void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
-		//LayoutParams params = getWindow().getAttributes();
-		//params.horizontalMargin = 20;
-		//getWindow().setAttributes(params);
 	}
 
-	public static class Builder{
+    @Override
+    protected void onStart() {
+        super.onStart();
+        if (mForceFullScreenWidth){
+            WindowManager.LayoutParams lp = new WindowManager.LayoutParams();
+            Window window = getWindow();
+            lp.copyFrom(window.getAttributes());
+            lp.width = WindowManager.LayoutParams.MATCH_PARENT;
+            lp.height = WindowManager.LayoutParams.WRAP_CONTENT;
+            window.setAttributes(lp);
+        }
+    }
+
+    /**
+     * 是否强制撑满屏幕宽
+     * @param full
+     */
+    public void setForceFullScreenWidth(boolean full){
+        mForceFullScreenWidth = full;
+    }
+
+    public static class Builder{
 		private Context mContext;
 		private CustomAlertDialog mDialog;
 		private CharSequence mTitle;
@@ -89,6 +111,8 @@ public class CustomAlertDialog extends Dialog{
 		private int mLayout = 0;
 
         private float mDensity;
+
+        private boolean mForceFullScreenWidth = false;
 		
 		public Builder (Context context){
 			mContext = context;
@@ -297,6 +321,15 @@ public class CustomAlertDialog extends Dialog{
         public void setLayoutResource(int layout){
         	mLayout = layout;
         }
+
+        /**
+         * 设置强制撑满屏幕
+         * @return
+         */
+        public Builder setForceFullScreenWidth(boolean full){
+            mForceFullScreenWidth = full;
+            return this;
+        }
         
     	@SuppressWarnings("unused")
         public CustomAlertDialog create(){
@@ -335,6 +368,7 @@ public class CustomAlertDialog extends Dialog{
         	
         	CustomAlertDialog customAlertDialog = new CustomAlertDialog(mContext, R.style.CustomDialog);
         	customAlertDialog.setContentView(mDialogTemplate);
+            customAlertDialog.setForceFullScreenWidth(mForceFullScreenWidth);
         	mDialog = customAlertDialog;
         	mDialog.setCancelable(mCancelable);
         	mHandler = new ButtonHandler(mDialog);
